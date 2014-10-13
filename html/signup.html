@@ -1,0 +1,144 @@
+<html>
+  <head>
+    <link rel="stylesheet" media="screen" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <!-- later change apache conf to serve from project root and update this path -->
+	<link rel="stylesheet" media="screen" href="../css/main.css">
+  </head>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  
+  <script>
+    $(document).ready(function() {
+
+	  var i = 1;
+	  $("#add_row").click(function() {
+	    $('#addr' + i).html("<td><input type='checkbox' class='form-control case'></td>"  + 
+			                    
+		"<td class='smallerCell'><input name='name" + i + "' type='text' placeholder='Name' " +
+		"class='form-control textfield'></td>" +
+				                    
+		"<td class='smallerCell'><input name='mail" + i + "' type='text' placeholder='Mail' " +
+		"class='form-control textfield'></td>"
+        );
+
+	    $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
+		
+		i++;
+		
+		$("#selectall").prop("checked", false);
+		});
+		    
+      $("#delete_rows").click(function(event) {
+	    // look in tab_logic 
+	    var checkedRows = $("tbody tr").filter(":has(:checkbox:checked)");
+	    var numChecked = checkedRows.length;
+	    if(numChecked > 0) {
+	      checkedRows.html('');
+	    }
+	
+	  // update i 
+	  i = i - numChecked;
+	  /* renumber the rows
+	    $("tr td:second-child").each(function() {
+		  for(var count=0; count < i; i++) {
+		    $(this).
+		  }
+		}); */
+	  $("#selectall").prop("checked", false)
+	  });
+		    
+      // selectall checkbox should toggle all/none selected
+      $("#selectall").on('change', function() {
+      $('.case').prop('checked', this.checked);
+	  });         
+		    
+      /* Listen to any checkbox.  After one is toggled,
+         if all checkboxes are selected, select the checkall checkbox
+         otherwise checkall checkbox shouldn't be checked */
+      $("body").on('change','.case', function() {
+        if($(".case").length == $(".case:checked").length) {
+          $("#selectall").prop("checked", true);
+        } else {
+          $("#selectall").prop("checked", false)
+        }   
+      });  // end Delete button callback
+           
+    }); // end document loaded callback
+  </script>
+	
+  <body>
+    <div class="container">
+      <div class="row">
+      	<div id="people_col" class="col-md-9">
+      <h1>People</h1>
+      <br>
+      <!--
+   	  <form class="form-horizontal" role="form">
+	    <div class="form-group">
+	        <label for="username" class="col-md-5 control-label">Manager's Name</label>
+		    <input type="email" class="col-md-5 form-control textfield" id="username" placeholder="Your Name">
+	    </div>
+      </form> -->
+      <div class="form-group">
+        <label for="username" class="control-label">Manager's Name</label>
+        <input type="email" class="form-control textfield" id="username" placeholder="Your Name">
+	  </div>
+	
+	  <table class="table table-bordered table-hover" id="tab_logic">
+        <thead>
+		  <tr>
+		    <th class="cbCell"><input type='checkbox' class='form-control' id='selectall'></th>
+			<th class="text-center smallerCell">Employee Name</th>
+			<th class="text-center smallerCell">E-mail</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr id='addr0'>
+		    <td class="cbCell"><input type='checkbox' class='form-control case'></td>
+			<td class="smallerCell"><input type="text" name='name0'  placeholder='Name' class="form-control textfield"/></td> 
+			<td class="smallerCell"><input type="text" name='mail0' placeholder='name@domainname.com' class="form-control textfield"/></td>
+		  </tr>
+		  <tr id='addr1'>
+		  </tr>
+	    </tbody>
+	  </table>
+
+	  <a id="delete_rows" class="btn btn-default pull-left">Delete Row(s)</a>
+	  <a id="add_row" class="btn btn-default">Add Row</a>
+	  <BR><BR>
+	  <a id="update_people" class="btn btn-primary">Set/Update People</a>
+	  </div>
+	  <div class="row">
+	  	<div id="establishment_col" class="col-md-3">
+	  		<h1>Establishment</h1>
+      <br>
+      <div class="form-group">
+        <label for="username" class="control-label">Name</label>
+        <input type="email" class="form-control textfield" id="username" placeholder="Dorsia">
+	  </div>
+	  <div class="form-group">
+        <label for="username" class="control-label">Street Address</label>
+        <input type="email" class="form-control textfield" id="username" placeholder="1156 Pine St">
+	  </div>
+      <div class="form-group">
+        <label for="username" class="control-label">City</label>
+        <input type="email" class="form-control textfield" id="username" placeholder="Manhattan">
+	  </div>
+	  <div class="form-group">
+        <label for="username" class="control-label">Zip Code</label>
+        <input type="email" class="form-control textfield" id="username" placeholder="10005">
+	  </div>
+	  <div class="form-group">
+        <label for="username" class="control-label">Number</label>
+        <input type="email" class="form-control textfield" id="username" placeholder="100">
+	  </div>
+	  <a id="update_people" class="btn btn-primary">Set/Update Establishment</a>
+	  	</div>
+	  </div>
+	  
+
+	
+   
+  </body>
+</html>
